@@ -1,0 +1,44 @@
+package com.examples;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+public class binarysearch {
+    static int[] nums = new int[10];
+
+    static int search;
+    static int min, max;
+    static boolean found = false;
+    static int index;
+
+    static int attempts = 0;
+
+    public static void main(String[] args){
+        for(int i = 0; i < nums.length; i++){
+            nums[i] = i;
+            System.out.println(nums[i]);
+        }
+
+        search = nums[ThreadLocalRandom.current().nextInt(1, nums.length-1)];
+
+        min = nums[0];
+        max = nums[nums.length-1];
+
+//        for(int i = 0; i < nums.length; i++){         //fisher-yates shuffle
+//            int temp = nums[i];
+//            int swapd = ThreadLocalRandom.current().nextInt(0, nums.length);
+//            nums[i] = nums[swapd];
+//            nums[swapd] = temp;
+//        }
+
+        if(search == nums[nums.length-1]) found = true;    //just in case the number i want is at the end of the list.
+        while(!found){
+            index = (min+max)/2;
+            attempts++;
+            if(search == nums[index]) found = true;
+            else if(search > nums[index]) min = index;
+            else if(search < nums[index]) max = index;
+        }
+
+        System.out.println("Found " + search + " in " + attempts + " attempts.");
+    }
+}
